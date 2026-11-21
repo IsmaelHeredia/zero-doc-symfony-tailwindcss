@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Paste\Domain\Paste" table="paste">
+
+        <indexes>
+            <index name="idx_paste_expires_at" columns="expires_at"/>
+            <index name="idx_paste_owner_id" columns="owner_id"/>
+        </indexes>
+
+        <id name="id" type="paste_id" length="22">
+            <options>
+                <option name="fixed">true</option>
+                <option name="collation">utf8mb4_bin</option>
+            </options>
+        </id>
+
+        <field name="ciphertext" type="ciphertext" length="16777215"/>
+
+        <field name="iv" type="initialization_vector" length="16">
+            <options>
+                <option name="fixed">true</option>
+            </options>
+        </field>
+
+        <field name="expiration" column="expires_at" type="expiration_policy" nullable="true"/>
+
+        <field name="views" type="integer">
+            <options>
+                <option name="unsigned">true</option>
+                <option name="default">0</option>
+            </options>
+        </field>
+
+        <field name="ownerId" column="owner_id" type="user_id" length="36" nullable="true">
+            <options>
+                <option name="fixed">true</option>
+            </options>
+        </field>
+
+        <field name="deleteTokenHash" column="delete_token_hash" type="delete_token_hash" length="64" nullable="true">
+            <options>
+                <option name="fixed">true</option>
+            </options>
+        </field>
+
+        <field name="createdAt" column="created_at" type="datetime_immutable"/>
+
+        <embedded name="viewPolicy" class="App\Paste\Domain\ValueObject\ViewPolicy" use-column-prefix="false"/>
+        <embedded name="keyDerivation" class="App\Paste\Domain\ValueObject\KeyDerivation" use-column-prefix="false"/>
+
+    </entity>
+</doctrine-mapping>

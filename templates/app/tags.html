@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Tags · ZeroDoc</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/icon.svg?v=1763e19a105b">
+  <link rel="stylesheet" href="/assets/app.css?v=319cf5544ed5" integrity="sha384-6nRkOQWymsgmFDxejSBdZ0Oi3xoJ46BOBwgyRKYPH7KTrQ2vH83XMsclR1ph/PKq">
+  <script src="/assets/theme.js?v=0804b7a2b72d" integrity="sha384-LgbqHapqvg5P+PeoJ4Bg7Xxm7QZjL4G/Qd/XcIgYHWVFIUv9D5djgmg1ucQlUSwM"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="brand" href="/">ZeroDoc</a>
+      <nav id="menu" class="menu" hidden></nav>
+      <div id="theme-slot" class="ml-auto"></div>
+    </div>
+  </header>
+
+  <main class="page stack">
+    <h1>Mis tags</h1>
+    <p class="notice">Los nombres de los tags se guardan en texto plano: quien administre el servidor puede verlos y saber qué paste lleva cada uno.</p>
+
+    <p id="status" role="status" hidden></p>
+    <p id="error" role="alert" hidden></p>
+
+    <form id="tag-form" class="flex gap-2">
+      <input name="name" maxlength="32" required placeholder="Nuevo tag" autocomplete="off">
+      <button type="submit" class="btn-primary">Crear tag</button>
+    </form>
+
+    <p id="no-tags" class="text-muted" hidden>Todavía no tenés tags.</p>
+    <ul id="tags" class="list"></ul>
+
+    <section id="detail" class="card stack" hidden>
+      <h2 id="detail-title"></h2>
+      <p id="tag-empty" class="text-muted" hidden>Este tag todavía no tiene pastes.</p>
+      <ul id="tag-pastes" class="list"></ul>
+      <div id="attach-block" class="flex flex-wrap items-end gap-2" hidden>
+        <label class="flex-1">Agregar uno de mis pastes <select id="attach-select"></select></label>
+        <button id="attach" type="button" class="btn-primary">Agregar</button>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="/assets/dist/tags.js?v=babcf06c304d" integrity="sha384-C4LivDIozq5e0KTYCApVFfQ98RatSBpDOpcd4Y90boNHx16qTE/v7ZDmCPiF64zh"></script>
+</body>
+</html>

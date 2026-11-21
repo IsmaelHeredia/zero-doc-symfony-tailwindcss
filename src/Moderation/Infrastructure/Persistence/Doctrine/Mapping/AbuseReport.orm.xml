@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Moderation\Domain\AbuseReport" table="abuse_report">
+
+        <indexes>
+            <index name="idx_report_status_created" columns="status,created_at"/>
+            <index name="idx_report_paste_status" columns="paste_id,status"/>
+        </indexes>
+
+        <unique-constraints>
+            <unique-constraint name="uniq_report_paste_reporter" columns="paste_id,reporter_id"/>
+        </unique-constraints>
+
+        <id name="id" type="report_id" length="36">
+            <options>
+                <option name="fixed">true</option>
+            </options>
+        </id>
+
+        <field name="pasteId" column="paste_id" type="paste_id" length="22">
+            <options>
+                <option name="fixed">true</option>
+                <option name="collation">utf8mb4_bin</option>
+            </options>
+        </field>
+
+        <field name="reason" type="string" length="16" enum-type="App\Moderation\Domain\ValueObject\ReportReason"/>
+
+        <field name="comment" column="comment_text" type="report_comment" length="280" nullable="true"/>
+
+        <field name="reporterId" column="reporter_id" type="user_id" length="36" nullable="true">
+            <options>
+                <option name="fixed">true</option>
+            </options>
+        </field>
+
+        <field name="status" type="string" length="16" enum-type="App\Moderation\Domain\ValueObject\ReportStatus"/>
+
+        <field name="createdAt" column="created_at" type="datetime_immutable"/>
+
+        <field name="closedAt" column="closed_at" type="datetime_immutable" nullable="true"/>
+
+        <field name="closedBy" column="closed_by" type="user_id" length="36" nullable="true">
+            <options>
+                <option name="fixed">true</option>
+            </options>
+        </field>
+
+    </entity>
+</doctrine-mapping>

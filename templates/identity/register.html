@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Crear cuenta · ZeroDoc</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/icon.svg?v=1763e19a105b">
+  <link rel="stylesheet" href="/assets/app.css?v=319cf5544ed5" integrity="sha384-6nRkOQWymsgmFDxejSBdZ0Oi3xoJ46BOBwgyRKYPH7KTrQ2vH83XMsclR1ph/PKq">
+  <script src="/assets/theme.js?v=0804b7a2b72d" integrity="sha384-LgbqHapqvg5P+PeoJ4Bg7Xxm7QZjL4G/Qd/XcIgYHWVFIUv9D5djgmg1ucQlUSwM"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="brand" href="/">ZeroDoc</a>
+      <div id="theme-slot" class="ml-auto"></div>
+    </div>
+  </header>
+
+  <main class="page page-narrow stack">
+    <h1>Crear cuenta</h1>
+    <form id="auth-form" class="card stack" data-endpoint="/auth/register" data-next="/login">
+      <label>Correo electrónico
+        <input name="email" type="email" required autocomplete="email">
+      </label>
+      <label>Contraseña (mínimo 12 caracteres)
+        <input name="password" type="password" required minlength="12" maxlength="128" autocomplete="new-password">
+      </label>
+      <button type="submit" class="btn-primary">Crear cuenta</button>
+    </form>
+    <p id="error" role="alert" hidden></p>
+    <p class="text-sm text-muted">¿Ya tenés cuenta? <a href="/login">Ingresá</a></p>
+  </main>
+  <script type="module" src="/assets/dist/auth.js?v=568eb00045ed" integrity="sha384-T1R8vCy7+m1Px44UJo2ZYoWVanV00X9wNhc5wQgiSnK2pqQ0DHJBiZ7E2EUg/Ri4"></script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+CREATE DATABASE IF NOT EXISTS zk_pastebin CHARACTER SET utf8mb4;
+CREATE DATABASE IF NOT EXISTS zk_pastebin_test CHARACTER SET utf8mb4;
+GRANT ALL PRIVILEGES ON `zk\_pastebin%`.* TO 'app'@'%';

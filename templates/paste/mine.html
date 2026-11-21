@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Mis pastes · ZeroDoc</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/icon.svg?v=1763e19a105b">
+  <link rel="stylesheet" href="/assets/app.css?v=319cf5544ed5" integrity="sha384-6nRkOQWymsgmFDxejSBdZ0Oi3xoJ46BOBwgyRKYPH7KTrQ2vH83XMsclR1ph/PKq">
+  <script src="/assets/theme.js?v=0804b7a2b72d" integrity="sha384-LgbqHapqvg5P+PeoJ4Bg7Xxm7QZjL4G/Qd/XcIgYHWVFIUv9D5djgmg1ucQlUSwM"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="brand" href="/">ZeroDoc</a>
+      <nav id="menu" class="menu" hidden></nav>
+      <div id="theme-slot" class="ml-auto"></div>
+    </div>
+  </header>
+
+  <main class="page stack">
+    <div>
+      <h1>Mis pastes</h1>
+      <p id="whoami" class="mt-2 text-sm text-muted"></p>
+    </div>
+
+    <p class="notice">
+      El servidor guarda solamente metadatos: nunca tuvo tus claves. Los enlaces completos se reconstruyen con las claves
+      almacenadas en <strong>este navegador</strong>. Si usás un equipo compartido o público, elegí «Salir y olvidar claves».
+    </p>
+
+    <div class="actions">
+      <button id="logout" type="button">Salir</button>
+      <button id="logout-forget" type="button" class="btn-danger">Salir y olvidar claves</button>
+      <button id="forget-all" type="button">Olvidar las claves de este navegador</button>
+    </div>
+
+    <p id="status" role="status" hidden></p>
+    <p id="error" role="alert" hidden></p>
+    <p id="empty" class="text-muted" hidden>Todavía no tenés pastes activos.</p>
+    <p id="truncated" class="text-sm text-muted" hidden>Se muestran los 200 más recientes.</p>
+    <ul id="list" class="grid gap-3"></ul>
+
+    <template id="row">
+      <li class="paste">
+        <div><code class="id"></code> <span class="badges"></span></div>
+        <div class="meta"></div>
+        <div class="actions">
+          <a class="open btn" rel="noopener noreferrer" hidden>Abrir</a>
+          <button type="button" class="copy" hidden>Copiar enlace</button>
+          <button type="button" class="forget" hidden>Olvidar clave</button>
+          <span class="nokey" hidden>La clave no está disponible en este navegador (¿lo creaste desde otro?)</span>
+        </div>
+      </li>
+    </template>
+  </main>
+  <script type="module" src="/assets/dist/mine.js?v=cc9e16977afd" integrity="sha384-LRuF82ZyedTsayG44bynIOy7rQ9f/T8s6WjSyYtyt/Pu3ACnUXX9Z45WavClVneD"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+parameters:
+    app.paste.default_max_ttl: 604800      
+    app.paste.default_max_bytes: 524288    
+    app.paste.large_max_bytes: 4194304     
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/Kernel.php'
+            - '../src/*/Domain/'
+            - '../src/Identity/Infrastructure/Security/SecurityUser.php'
+            - '../src/*/Application/Query/*Summary.php'
+            - '../src/*/Application/Query/*Entry.php'
+            - '../src/*/Application/Query/*Page.php'
+            - '../src/*/Application/Query/*Listing.php'
+            - '../src/*/Application/Query/*View.php'
+            - '../src/*/Application/Query/UserAccess.php'
+            - '../src/*/Application/Query/PasteAccessInfo.php'
+            - '../src/*/Application/Query/TaggedPaste.php'
+            - '../src/*/Application/*/*Command.php'
+            - '../src/*/Application/*/*/*Command.php'
+            - '../src/*/Application/Port/CreationRights.php'
+            - '../src/*/Application/Port/DeletionGrant.php'
+            - '../src/*/Application/*/Created*.php'
+            - '../src/*/Application/Exception/'
+            - '../src/Paste/Infrastructure/Security/PasteDeletionRequest.php'
+
+    App\Identity\Domain\LastAdminGuard: ~
+
+    App\Paste\Application\Create\CreatePasteHandler:
+        arguments:
+            $defaultMaxTtlSeconds: '%app.paste.default_max_ttl%'
+            $defaultMaxBytes: '%app.paste.default_max_bytes%'
+            $largeMaxBytes: '%app.paste.large_max_bytes%'
+
+    App\Paste\Domain\PasteRepository: '@App\Paste\Infrastructure\Persistence\Doctrine\DoctrinePasteRepository'
+    App\Identity\Domain\UserRepository: '@App\Identity\Infrastructure\Persistence\Doctrine\DoctrineUserRepository'
+    App\Identity\Domain\RoleRepository: '@App\Identity\Infrastructure\Persistence\Doctrine\DoctrineRoleRepository'
+    App\Organization\Domain\TagRepository: '@App\Organization\Infrastructure\Persistence\Doctrine\DoctrineTagRepository'
+    App\Moderation\Domain\AbuseReportRepository: '@App\Moderation\Infrastructure\Persistence\Doctrine\DoctrineAbuseReportRepository'

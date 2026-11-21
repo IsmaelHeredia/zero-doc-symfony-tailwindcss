@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Moderación · ZeroDoc</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/icon.svg?v=1763e19a105b">
+  <link rel="stylesheet" href="/assets/app.css?v=319cf5544ed5" integrity="sha384-6nRkOQWymsgmFDxejSBdZ0Oi3xoJ46BOBwgyRKYPH7KTrQ2vH83XMsclR1ph/PKq">
+  <script src="/assets/theme.js?v=0804b7a2b72d" integrity="sha384-LgbqHapqvg5P+PeoJ4Bg7Xxm7QZjL4G/Qd/XcIgYHWVFIUv9D5djgmg1ucQlUSwM"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="brand" href="/">ZeroDoc</a>
+      <nav id="menu" class="menu" hidden></nav>
+      <div id="theme-slot" class="ml-auto"></div>
+    </div>
+  </header>
+
+  <main class="page page-wide stack">
+    <h1>Cola de moderación</h1>
+    <p class="notice">Acá solo ves el ID, el motivo y el comentario de quien reporta. Nunca el contenido del paste ni su enlace: moderar consiste en descartar el reporte o destruir el paste a partir de su ID.</p>
+
+    <p id="status" role="status" hidden></p>
+    <p id="error" role="alert" hidden></p>
+    <p id="empty" class="text-muted" hidden>No hay reportes abiertos.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Paste</th><th>Motivo</th><th>Comentario</th><th>Fecha</th><th>Reportes del paste</th><th>Acciones</th></tr>
+        </thead>
+        <tbody id="reports"></tbody>
+      </table>
+    </div>
+  </main>
+  <script type="module" src="/assets/dist/moderation.js?v=51e4dee10099" integrity="sha384-/2EuRDQjzaU0AutbmKrobHPdPjoUYoxlXE9jNgAmLfPaYSwD642x8QzO0IUZDiW4"></script>
+</body>
+</html>

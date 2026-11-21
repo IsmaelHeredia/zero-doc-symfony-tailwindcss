@@ -1,0 +1,40 @@
+security:
+    password_hashers:
+        App\Identity\Infrastructure\Security\SecurityUser: 'auto'
+
+    providers:
+        identity_provider:
+            id: App\Identity\Infrastructure\Security\SecurityUserProvider
+
+    firewalls:
+        dev:
+            pattern: ^/(_profiler|_wdt|assets)/
+            security: false
+        main:
+            lazy: true
+            provider: identity_provider
+            entry_point: App\Identity\Infrastructure\Security\JsonUnauthorizedEntryPoint
+            json_login:
+                check_path: identity_login
+                username_path: email
+                password_path: password
+            login_throttling:
+                max_attempts: 5          
+            logout:
+                path: identity_logout
+
+    access_control:
+        - { path: ^/auth/me, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/tags, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/moderation, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/pastes/mine$, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/admin, roles: IS_AUTHENTICATED_FULLY }
+
+when@test:
+    security:
+        password_hashers:
+            App\Identity\Infrastructure\Security\SecurityUser:
+                algorithm: auto
+                cost: 4          
+                time_cost: 3     
+                memory_cost: 10

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Administración · ZeroDoc</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/icon.svg?v=1763e19a105b">
+  <link rel="stylesheet" href="/assets/app.css?v=319cf5544ed5" integrity="sha384-6nRkOQWymsgmFDxejSBdZ0Oi3xoJ46BOBwgyRKYPH7KTrQ2vH83XMsclR1ph/PKq">
+  <script src="/assets/theme.js?v=0804b7a2b72d" integrity="sha384-LgbqHapqvg5P+PeoJ4Bg7Xxm7QZjL4G/Qd/XcIgYHWVFIUv9D5djgmg1ucQlUSwM"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="brand" href="/">ZeroDoc</a>
+      <nav id="menu" class="menu" hidden></nav>
+      <div id="theme-slot" class="ml-auto"></div>
+    </div>
+  </header>
+
+  <main class="page page-wide stack">
+    <h1>Administración</h1>
+
+    <p id="status" role="status" hidden></p>
+    <p id="error" role="alert" hidden></p>
+
+    <section id="users-section" class="stack" hidden>
+      <h2>Usuarios y roles</h2>
+      <p id="users-truncated" class="text-sm text-muted" hidden>Se muestran los primeros 200 usuarios.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Correo</th><th>ID</th><th>Roles</th><th>Alta</th><th>Asignar rol</th></tr></thead>
+          <tbody id="users"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="roles-section" class="stack" hidden>
+      <h2>Permisos de cada rol</h2>
+      <p class="notice">Solo existen los permisos del catálogo cerrado. El rol <code>admin</code> conserva siempre <code>user.manage</code> y <code>role.manage</code>. Ningún permiso da acceso al contenido ni a los enlaces.</p>
+      <div id="roles" class="grid gap-4 md:grid-cols-2"></div>
+    </section>
+  </main>
+  <script type="module" src="/assets/dist/admin.js?v=eb4e44f56536" integrity="sha384-Xg9/KNtofACDU0fAgDE8t7hbN5PAQxP5R074IaMwhMW0cd5ZW5R2OnlWsLDQ+mNx"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+paste_ui:
+    resource:
+        path: ../src/Paste/UI/Http/
+        namespace: App\Paste\UI\Http
+    type: attribute
+identity_ui:
+    resource:
+        path: ../src/Identity/UI/Http/
+        namespace: App\Identity\UI\Http
+    type: attribute
+organization_ui:
+    resource:
+        path: ../src/Organization/UI/Http/
+        namespace: App\Organization\UI\Http
+    type: attribute
+moderation_ui:
+    resource:
+        path: ../src/Moderation/UI/Http/
+        namespace: App\Moderation\UI\Http
+    type: attribute

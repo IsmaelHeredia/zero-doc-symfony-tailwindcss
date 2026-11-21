@@ -1,0 +1,118 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
+[ -f .env.docker ] || { echo "Falta .env.docker" >&2; exit 1; }
+set -a; . ./.env.docker; set +a
+export HOST_UID="${HOST_UID:-$(id -u)}" HOST_GID="${HOST_GID:-$(id -g)}"
+
+say()   { printf '\n\033[1m==> %s\033[0m\n' "$*"; }
+die()   { printf '\033[31mError:\033[0m %s\n' "$*" >&2; exit 1; }
+dc()    { docker compose --env-file .env.docker "$@"; }
+run()   { dc exec -T app "$@"; }
+runi()  { dc exec app "$@"; }
+
+need_docker() {
+  command -v docker >/dev/null 2>&1 || die "Docker no está instalado."
+  docker compose version >/dev/null 2>&1 || die "Falta Docker Compose v2 (el comando «docker compose»)."
+  docker info >/dev/null 2>&1 || die "Docker no está en marcha: ábrelo y reintenta."
+}
+
+secret() {
+  if [ -f .env.local ] && grep -q '^APP_SECRET=.\+' .env.local; then
+    return
+  fi
+  say "Generando APP_SECRET en .env.local"
+  local value
+  value="$(od -An -N32 -tx1 /dev/urandom | tr -d ' \n')"
+  printf 'APP_SECRET=%s\n' "$value" >> .env.local
+}
+
+up()     { say "Levantando contenedores (puertos solo en 127.0.0.1)"; dc up -d --build --wait; }
+deps()   { say "Instalando dependencias PHP"; run composer install --no-interaction --prefer-dist --no-progress; }
+seed()   { say "Roles y permisos por defecto"; run php bin/console app:identity:seed; }
+assets() { say "Compilando CSS, JS y hashes SRI"; run bash bin/build-assets.sh; }
+
+db() {
+  say "Base de datos (desarrollo y test)"
+  dc exec -T database sh -c 'exec mysql -uroot -p"$MYSQL_ROOT_PASSWORD"' < docker/mysql/grants.sql
+  run php bin/console doctrine:database:create --if-not-exists
+  run php bin/console doctrine:migrations:migrate -n --allow-no-migration
+  run php bin/console doctrine:schema:update --force
+  run php bin/console doctrine:schema:validate || echo "Aviso: schema:validate no está conforme; revisa el mensaje de arriba."
+  run php bin/console --env=test doctrine:database:create --if-not-exists
+  run php bin/console --env=test doctrine:schema:update --force
+}
+
+test_all() { run env APP_ENV=test php bin/phpunit "$@"; run node --test 'tests/js/*.test.mjs'; }
+
+check_all() {
+  say "Plantillas y hashes SRI";  run php bin/console app:assets:sri --check
+  say "Esquema de la base de datos"; run php bin/console doctrine:schema:validate
+  say "PHPUnit y pruebas JS";     test_all
+}
+
+info() {
+  cat <<EOF
+
+  Web:       http://localhost:${APP_PORT}
+  MySQL:     127.0.0.1:${DB_PORT}   (usuario app / contraseña app / base zk_pastebin)
+  Siguiente: bash bin/dev admin admin@localhost.com     # crea el primer administrador
+
+EOF
+}
+
+setup() {
+  need_docker
+  chmod +x bin/dev bin/build-assets.sh 2>/dev/null || true
+  secret; up; deps; db; seed; assets
+  say "Listo"; info
+}
+
+usage() {
+  cat <<'EOF'
+Uso: bash bin/dev <comando>
+
+  setup            Instalación completa (la primera vez)
+  up | down        Arrancar / parar los contenedores
+  restart          Reiniciar la app
+  logs [servicio]  Ver logs
+  ps               Estado y puertos publicados
+  shell            Terminal dentro del contenedor de la app
+  console <...>    php bin/console <...>
+  admin <email>    Crear un administrador (pide la contraseña sin eco)
+  db               Crear/actualizar la base de datos (dev y test)
+  seed             Roles y permisos por defecto (idempotente)
+  assets           Compilar CSS/JS y actualizar hashes SRI
+  test [args]      PHPUnit + pruebas JS
+  check            Comprobación completa de cierre
+  reset            BORRA la base de datos y reinstala
+EOF
+}
+
+cmd="${1:-help}"; shift || true
+case "$cmd" in
+  setup)   setup ;;
+  up)      need_docker; up; info ;;
+  down)    need_docker; dc down ;;
+  restart) need_docker; dc restart app ;;
+  logs)    need_docker; dc logs -f --tail=100 "$@" ;;
+  ps)      need_docker; dc ps ;;
+  shell)   need_docker; runi bash ;;
+  console) need_docker; runi php bin/console "$@" ;;
+  admin)   need_docker; [ $# -ge 1 ] || die "Uso: bash bin/dev admin admin@localhost.com"; runi php bin/console app:identity:create-admin "$1" ;;
+  db)      need_docker; db ;;
+  seed)    need_docker; seed ;;
+  assets)  need_docker; assets ;;
+  test)    need_docker; test_all "$@" ;;
+  check)   need_docker; check_all ;;
+  reset)
+    need_docker
+    read -r -p "Esto BORRA la base de datos de desarrollo. Escribe «si» para continuar: " answer
+    [ "$answer" = "si" ] || die "Cancelado."
+    dc down -v
+    setup ;;
+  help|-h|--help) usage ;;
+  *) usage; exit 1 ;;
+esac

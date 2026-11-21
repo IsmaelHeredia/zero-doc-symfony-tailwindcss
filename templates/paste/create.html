@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>ZeroDoc</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/icon.svg?v=1763e19a105b">
+  <link rel="stylesheet" href="/assets/app.css?v=319cf5544ed5" integrity="sha384-6nRkOQWymsgmFDxejSBdZ0Oi3xoJ46BOBwgyRKYPH7KTrQ2vH83XMsclR1ph/PKq">
+  <script src="/assets/theme.js?v=0804b7a2b72d" integrity="sha384-LgbqHapqvg5P+PeoJ4Bg7Xxm7QZjL4G/Qd/XcIgYHWVFIUv9D5djgmg1ucQlUSwM"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="brand" href="/">ZeroDoc</a>
+      <nav id="menu" class="menu" hidden></nav>
+      <nav id="nav-guest" class="menu"><a href="/login">Ingresar</a><a href="/register">Crear cuenta</a></nav>
+      <div id="theme-slot" class="ml-auto"></div>
+    </div>
+  </header>
+
+  <main class="page stack">
+    <div>
+      <h1>Compartí texto de forma privada</h1>
+      <p class="lead">Tu texto se cifra en el navegador antes de enviarse. El servidor nunca conoce la clave.</p>
+      <p id="whoami" class="mt-2 text-sm text-muted"></p>
+    </div>
+
+    <form id="paste-form" class="card stack">
+      <textarea name="text" rows="12" required placeholder="Escribí o pegá tu texto acá…" spellcheck="false"></textarea>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <label>Vence en
+          <select name="ttl">
+            <option value="600">10 minutos</option>
+            <option value="3600" selected>1 hora</option>
+            <option value="86400">1 día</option>
+            <option value="604800">7 días</option>
+            <option value="never">Nunca (requiere un permiso de tu cuenta)</option>
+          </select>
+        </label>
+        <label>Lecturas permitidas
+          <select name="views">
+            <option value="">Sin límite</option>
+            <option value="burn">Una sola (se destruye al abrirlo)</option>
+            <option value="3">3</option>
+            <option value="10">10</option>
+          </select>
+        </label>
+        <label>Contraseña (opcional)
+          <input name="password" type="password" minlength="8" autocomplete="new-password">
+        </label>
+        <label>Repetí la contraseña
+          <input name="password2" type="password" autocomplete="new-password">
+        </label>
+      </div>
+      <p class="text-sm text-muted">Si agregás una contraseña, además del enlace se va a necesitar esa contraseña. Si la perdés, no hay forma de recuperar el contenido.</p>
+
+      <div id="remember-block" class="stack" hidden>
+        <label class="check">
+          <input id="remember" name="remember" type="checkbox" checked>
+          Recordar el enlace en este navegador (para verlo en «Mis pastes»)
+        </label>
+        <p class="notice">No lo marques si usás un equipo compartido o público: cualquier persona que use este navegador podría reconstruir tus enlaces. La contraseña nunca se guarda.</p>
+      </div>
+
+      <button type="submit" class="btn-primary">Cifrar y crear</button>
+    </form>
+
+    <p id="error" role="alert" hidden></p>
+
+    <section id="result" class="card stack" hidden>
+      <h2>Tu enlace (incluye la clave después del #)</h2>
+      <div class="flex gap-2">
+        <input id="link" readonly>
+        <button type="button" data-copy="link">Copiar</button>
+      </div>
+      <div id="token-block" class="stack" hidden>
+        <h2>Token de borrado (se muestra una sola vez)</h2>
+        <div class="flex gap-2">
+          <input id="delete-token" readonly>
+          <button type="button" data-copy="delete-token">Copiar</button>
+        </div>
+      </div>
+      <p id="owner-note" class="text-sm text-muted" hidden>Este paste pertenece a tu cuenta: podés borrarlo desde su página mientras tengas la sesión iniciada.</p>
+      <p id="stored-note" role="status" hidden></p>
+    </section>
+  </main>
+  <script type="module" src="/assets/dist/create.js?v=b9a28dd606b7" integrity="sha384-ngb3TPLqc8iQohjXd8bnB8AtbgqwvpD4N58lAOevRFrHjNogDH/28eiNgskPg7Hg"></script>
+</body>
+</html>

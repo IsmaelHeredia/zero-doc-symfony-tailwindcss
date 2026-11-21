@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>ZeroDoc</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/icon.svg?v=1763e19a105b">
+  <link rel="stylesheet" href="/assets/app.css?v=319cf5544ed5" integrity="sha384-6nRkOQWymsgmFDxejSBdZ0Oi3xoJ46BOBwgyRKYPH7KTrQ2vH83XMsclR1ph/PKq">
+  <script src="/assets/theme.js?v=0804b7a2b72d" integrity="sha384-LgbqHapqvg5P+PeoJ4Bg7Xxm7QZjL4G/Qd/XcIgYHWVFIUv9D5djgmg1ucQlUSwM"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="brand" href="/">ZeroDoc</a>
+      <div id="theme-slot" class="ml-auto"></div>
+    </div>
+  </header>
+
+  <main class="page stack">
+    <div>
+      <h1>Paste cifrado</h1>
+      <p class="lead">El contenido se descifra en tu navegador. Si es de una sola lectura, se destruye apenas lo abrís.</p>
+    </div>
+
+    <section class="card stack">
+      <div id="password-block" hidden>
+        <label>Este paste está protegido con contraseña
+          <input id="password" type="password" autocomplete="off">
+        </label>
+      </div>
+      <button id="reveal" type="button" class="btn-primary">Mostrar contenido</button>
+      <pre id="content" hidden></pre>
+      <p id="error" role="alert" hidden></p>
+    </section>
+
+    <details>
+      <summary>Borrar este paste</summary>
+      <div class="stack">
+        <p class="text-sm text-muted">Podés usar el token de borrado, o bien tener la sesión iniciada como propietario o moderador (en ese caso dejá el token vacío).</p>
+        <input id="token" placeholder="Token de borrado (opcional)" autocomplete="off">
+        <button id="delete" type="button" class="btn-danger">Borrar</button>
+      </div>
+    </details>
+
+    <details>
+      <summary>Reportar contenido abusivo</summary>
+      <div class="stack">
+        <p class="text-sm text-muted">Solo se envía el identificador del paste, nunca la clave ni la contraseña. Por favor, no pegues el enlace completo en el comentario.</p>
+        <select id="report-reason">
+          <option value="spam">Spam</option>
+          <option value="malware">Malware o phishing</option>
+          <option value="illegal">Contenido ilegal</option>
+          <option value="harassment">Acoso</option>
+          <option value="other">Otro motivo</option>
+        </select>
+        <input id="report-comment" maxlength="280" placeholder="Comentario (opcional, hasta 280 caracteres)" autocomplete="off">
+        <button id="report" type="button">Enviar reporte</button>
+        <p id="report-status" role="status" hidden></p>
+      </div>
+    </details>
+  </main>
+  <script type="module" src="/assets/dist/view.js?v=4ec3b0fed6c1" integrity="sha384-VVkCgUQSk6gQ+jiBCdFb5R9+mJfUYOMkkLvIk1vx0EbEvWlhEO2ZFeCV6YpvYMw5"></script>
+</body>
+</html>

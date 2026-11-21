@@ -1,0 +1,70 @@
+doctrine:
+    dbal:
+        url: '%env(resolve:DATABASE_URL)%'
+        types:
+            paste_id: App\Paste\Infrastructure\Persistence\Doctrine\Type\PasteIdType
+            ciphertext: App\Paste\Infrastructure\Persistence\Doctrine\Type\CiphertextType
+            initialization_vector: App\Paste\Infrastructure\Persistence\Doctrine\Type\InitializationVectorType
+            delete_token_hash: App\Paste\Infrastructure\Persistence\Doctrine\Type\DeleteTokenHashType
+            expiration_policy: App\Paste\Infrastructure\Persistence\Doctrine\Type\ExpirationPolicyType
+            user_id: App\Shared\Infrastructure\Persistence\Doctrine\Type\UserIdType
+            email: App\Identity\Infrastructure\Persistence\Doctrine\Type\EmailType
+            hashed_password: App\Identity\Infrastructure\Persistence\Doctrine\Type\HashedPasswordType
+            role_id: App\Identity\Infrastructure\Persistence\Doctrine\Type\RoleIdType
+            role_name: App\Identity\Infrastructure\Persistence\Doctrine\Type\RoleNameType
+            tag_id: App\Organization\Infrastructure\Persistence\Doctrine\Type\TagIdType
+            tag_name: App\Organization\Infrastructure\Persistence\Doctrine\Type\TagNameType
+            report_id: App\Moderation\Infrastructure\Persistence\Doctrine\Type\ReportIdType
+            report_comment: App\Moderation\Infrastructure\Persistence\Doctrine\Type\ReportCommentType
+    orm:
+        enable_lazy_ghost_objects: true
+        report_fields_where_declared: true
+        validate_xml_mapping: true
+        auto_mapping: false
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        mappings:
+            Paste:
+                type: xml
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Paste/Infrastructure/Persistence/Doctrine/Mapping'
+                prefix: 'App\Paste\Domain'
+            Identity:
+                type: xml
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Identity/Infrastructure/Persistence/Doctrine/Mapping'
+                prefix: 'App\Identity\Domain'
+            Organization:
+                type: xml
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Organization/Infrastructure/Persistence/Doctrine/Mapping'
+                prefix: 'App\Organization\Domain'
+            Moderation:
+                type: xml
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Moderation/Infrastructure/Persistence/Doctrine/Mapping'
+                prefix: 'App\Moderation\Domain'
+
+when@test:
+    doctrine:
+        dbal:
+            dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+
+when@prod:
+    doctrine:
+        orm:
+            auto_generate_proxy_classes: false
+            proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
+            query_cache_driver:
+                type: pool
+                pool: doctrine.system_cache_pool
+            result_cache_driver:
+                type: pool
+                pool: doctrine.result_cache_pool
+
+    framework:
+        cache:
+            pools:
+                doctrine.result_cache_pool:
+                    adapter: cache.app
+                doctrine.system_cache_pool:
+                    adapter: cache.system

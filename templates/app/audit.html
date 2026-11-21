@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Auditoría · ZeroDoc</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/icon.svg?v=1763e19a105b">
+  <link rel="stylesheet" href="/assets/app.css?v=319cf5544ed5" integrity="sha384-6nRkOQWymsgmFDxejSBdZ0Oi3xoJ46BOBwgyRKYPH7KTrQ2vH83XMsclR1ph/PKq">
+  <script src="/assets/theme.js?v=0804b7a2b72d" integrity="sha384-LgbqHapqvg5P+PeoJ4Bg7Xxm7QZjL4G/Qd/XcIgYHWVFIUv9D5djgmg1ucQlUSwM"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="brand" href="/">ZeroDoc</a>
+      <nav id="menu" class="menu" hidden></nav>
+      <div id="theme-slot" class="ml-auto"></div>
+    </div>
+  </header>
+
+  <main class="page page-wide stack">
+    <h1>Auditoría</h1>
+    <p class="notice">Es una vista de solo lectura con las 200 entradas más recientes. Los registros contienen IDs, acciones y fechas; nunca contenido, enlaces, correos ni direcciones IP. Para saber a quién corresponde un ID, buscalo en «Administración».</p>
+
+    <p id="error" role="alert" hidden></p>
+    <p id="status" role="status" hidden></p>
+
+    <section class="stack">
+      <h2>Cambios de roles y permisos</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Fecha</th><th>Acción</th><th>Actor</th><th>Usuario afectado</th><th>Rol</th><th>Permiso</th></tr></thead>
+          <tbody id="actions"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="stack">
+      <h2>Borrados de pastes</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Fecha</th><th>Paste</th><th>Motivo</th><th>Actor</th></tr></thead>
+          <tbody id="deletions"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="/assets/dist/audit.js?v=9b20883673db" integrity="sha384-10hRS4b7n4d6Om7aEle6Xafbzl7RM4zFgYSQs3uzHI4dPbakt7FfDuhAFlLIpEgb"></script>
+</body>
+</html>
