@@ -51,7 +51,15 @@
 
 A continuación, se muestran algunas imágenes de la aplicación en funcionamiento:
 
-![screenshot]()
+![screenshot](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjNjB8e0p2ZItLejVO7KiWqKPgDHZdfgItZpCfP_JoD7SP6dixCQ4jMh3_47GcKRidnYpZuXnih33L7cPz6pGu8NtFJoISnHlMoJoAwLHvUATFAv8YEl3efU-BDiVUuyYqSuOjotd3jCI2yEyDbwrfTNZ7v0EXW8rMJ4zTQ7Ng_Aun618tHCEbTp89VcnQ/s1499/1.png)
+
+![screenshot](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj8CiXoeYufxGZ83HY5C5i_pNYEyP-xOPEhdbtWIY3Fv8ZGs1VKtB4paryo5ithBYO0MC2pfOZdoyPJiaD0g3tfPhYCYUddYR-hWpKPaYVj8-wTWWRZYom93vdgfeC24xWUKKeFKnyy5ADY3hsFjreu5PzoxheLRDLi54ebjVJZebNHDy365YrMZD0giLI/s1523/2.png)
+
+![screenshot](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjOQOQmrF7-kMA-iNwkgAtezbhrEhkRl4GFBhtv2w5R3W1Q4SWT4wuhdwbWXmDNMN6ePhoDdu4TAusnR6TwyY-c7aR4MtgaAN9so3W2nhqjShyphenhyphen_da8ixHrxi82ZUWW3SNNEuRLvf_RjGnQcNCHF0IZutjgZjc8QyblINkzQKoXp6Xy6MEwH74bWlz6MIko/s1476/3.png)
+
+![screenshot](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgnbhc2hN4c8zSGIV6eslgaravxC6zVlV5QqM9te0TU-ZxAyyyNqZrTMcnEaABoEzecvTA3ka-qOOlwNYU5VvOkFrdUEoeE96jNmXHub8ZgGNX-iK8_51Xzk_RjCCb8g3QH4VCaG0wbgq0DOW6OoV3K9Yev58S6Nly4IgITq8gU27e-maUPOq7QYTWgBzE/s1461/4.png)
+
+![screenshot](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj9uTAm-Nm7Pji3ItJkUGD0IV47GFX4z3JSvfvFAQoMLgnvY_tBZ0-5PkBuK2nxgjRkYx8xNI163kS2mCBgUsuIuPzRX3bU0eyDM8mn8UjAPk_sWVEZkhHOrMf08IdF2kRlCi7IEkVC7ZhXUaic0sVM5RjLQMirsTWZlYwIvncFA9aO3JXQx_cFL9YQDKE/s1465/5.png)
 
 ### Instalación del proyecto
 
